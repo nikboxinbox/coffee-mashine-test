@@ -1,85 +1,69 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+<template lang="pug">
+div
+  h1 {{currentMashine.title}} 
+  img(:src="currentMashine.imgPath", alt="Кофемашина")
+  select(v-model="selectSize")
+    option(v-for="size in sizes" :key="size" :value="size") {{ size }}
+  select(v-model="selectNumDrinks")
+    option(v-for="numDrinks in numDrinks" :key="numDrinks" :value="numDrinks") {{ numDrinks }}
+  button(@click="addToCart") Добавить в корзину
+  router-link(to="/cart") Перейти в корзину
 </template>
 
+<script setup>
+import { computed, ref } from 'vue'
+import CoffeeMashine from './utils/CoffeeMachine'
+
+const sizes = ['standart', 'large']
+const numDrinks = [1, 2, 3, 4, 5]
+
+const selectSize = ref(sizes[0])
+const selectNumDrinks = ref(numDrinks[0])
+
+const currentMashine = computed(() => new CoffeeMashine(selectSize.value, selectNumDrinks.value))
+const addToCart = () => {
+  console.log('Добавить')
+}
+</script>
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+div {
+  /* text-align: center; */
+  /* max-width: 600px; */
+  font-size: 18px;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+h1 {
+  margin-bottom: 20px;
+  text-transform: capitalize;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+img {
+  margin-bottom: 10px;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+select {
+  padding: 8px;
+  margin-bottom: 10px;
+
+  /* font-size: 16px; */
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+button {
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
+button:hover {
+  background-color: #45a049;
 }
 </style>

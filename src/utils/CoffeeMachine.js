@@ -1,4 +1,4 @@
-export class CoffeeMachine {
+export default class CoffeeMachine {
   #size
   #numDrinks
   #name
@@ -10,7 +10,7 @@ export class CoffeeMachine {
     this.#numDrinks = numDrinks
     this.#name = `${size}_${numDrinks}`
     this.#title = `${size} ${numDrinks}`
-    this.#imgPath = `${size}.jpeg`
+    this.#imgPath = `src/assets/mashine-img/${size}.jpeg`
   }
 
   get name() {
