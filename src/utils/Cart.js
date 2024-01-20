@@ -1,7 +1,10 @@
 export class CoffeMashineCart {
   #storage = {}
+ 
 
-  get cartList() {
+
+  // TODO: Определиться какой вариант подходит более из списков
+  get listModels() {
     const result = []
 
     for (const name in this.#storage) {
@@ -10,6 +13,10 @@ export class CoffeMashineCart {
     }
 
     return result
+  }
+
+  get listMasines() {
+    return Object.values(this.#storage)
   }
 
   addCoffeMashine(coffeMashine) {
