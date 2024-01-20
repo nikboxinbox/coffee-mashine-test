@@ -8,11 +8,11 @@ export const useMainStore = defineStore('main', () => {
   const sizes = ref(null)
   const numDrinks = ref(null)
   const cart = useStorage('cart', () => new Cart())
-
+  const errorMessage = ref(null)
   const isPendingOptions = ref(false)
 
   const loadOptions = async () => {
-    debugger
+    // debugger
 
     try {
       isPendingOptions.value = true
@@ -21,9 +21,9 @@ export const useMainStore = defineStore('main', () => {
       const options = await response.json()
       sizes.value = options.sizes
       numDrinks.value = options.numDrinks
-      return response
     } catch (error) {
-      console.error('Ошибка при загрузке опций:', error)
+      errorMessage.value = 'Ошибка при загрузке  данных c сервера!'
+      console.error(errorMessage, error)
     } finally {
       isPendingOptions.value = false
     }
@@ -34,7 +34,8 @@ export const useMainStore = defineStore('main', () => {
   return {
     sizes,
     numDrinks,
+    cart,
     isPendingOptions,
-    cart
+    errorMessage
   }
 })
