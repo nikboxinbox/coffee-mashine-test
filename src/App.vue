@@ -1,5 +1,6 @@
 <template lang="pug">
-div
+div(v-if="isPendingOptions")   ИДЕТ ЗАГРУЗКА... 
+div(v-else)
   h1 {{currentMashine.title}} 
   img(:src="currentMashine.imgPath", alt="Кофемашина")
   select(v-model="selectSize")
@@ -12,15 +13,17 @@ div
 
 <script setup>
 import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMainStore } from './stores/mainStore'
 import CoffeeMashine from './utils/CoffeeMachine'
 
-const sizes = ['standart', 'large']
-const numDrinks = [1, 2, 3, 4, 5]
+const { sizes, numDrinks, isPendingOptions } = storeToRefs(useMainStore())
 
-const selectSize = ref(sizes[0])
-const selectNumDrinks = ref(numDrinks[0])
+const selectSize = ref(sizes.value ? sizes.value.length[0] : 'standart')
+const selectNumDrinks = ref(numDrinks.value ? numDrinks.value.length[0] : 6)
 
 const currentMashine = computed(() => new CoffeeMashine(selectSize.value, selectNumDrinks.value))
+
 const addToCart = () => {
   console.log('Добавить')
 }
