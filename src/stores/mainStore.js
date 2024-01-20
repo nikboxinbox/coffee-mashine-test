@@ -1,10 +1,13 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useStorage } from '@vueuse/core'
+import Cart from '../utils/Cart'
 
 export const useMainStore = defineStore('main', () => {
   // const options = ref(null)
   const sizes = ref(null)
   const numDrinks = ref(null)
+  const cart = useStorage('cart', () => new Cart())
 
   const isPendingOptions = ref(false)
 
@@ -32,6 +35,6 @@ export const useMainStore = defineStore('main', () => {
     sizes,
     numDrinks,
     isPendingOptions,
-    loadOptions
+    cart
   }
 })

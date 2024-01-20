@@ -1,7 +1,5 @@
-export class CoffeMashineCart {
+export default class CoffeMashineCart {
   #storage = {}
- 
-
 
   // TODO: Определиться какой вариант подходит более из списков
   get listModels() {
