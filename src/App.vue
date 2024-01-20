@@ -7,7 +7,7 @@ div
   select(v-model="selectNumDrinks")
     option(v-for="numDrinks in numDrinks" :key="numDrinks" :value="numDrinks") {{ numDrinks }}
   button(@click="addToCart") Добавить в корзину
-  router-link(to="/cart") Перейти в корзину
+  router-link.router-link(to="/cart") Перейти в корзину
 </template>
 
 <script setup>
@@ -28,11 +28,10 @@ const addToCart = () => {
 
 <style scoped>
 div {
-  /* text-align: center; */
-  /* max-width: 600px; */
+  text-align: center;
+  max-width: 220px;
   font-size: 18px;
   margin: auto;
-  padding: 20px;
   display: flex;
   flex-direction: column;
 }
@@ -44,11 +43,17 @@ h1 {
 
 img {
   margin-bottom: 10px;
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
 select {
   padding: 8px;
   margin-bottom: 10px;
+  border-radius: 5px;
 
   /* font-size: 16px; */
 }
@@ -59,11 +64,15 @@ button {
   background-color: #4caf50;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
   background-color: #45a049;
+}
+
+.router-link {
+  border-radius: 5px;
 }
 </style>
