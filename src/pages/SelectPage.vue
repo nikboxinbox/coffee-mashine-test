@@ -2,13 +2,13 @@
 div(v-if="isPendingOptions")   ИДЕТ ЗАГРУЗКА... 
 div(v-else-if="errorMessage") {{ errorMessage }}
 div(v-else) 
-  h1 {{currentMashine.title}} HFFFF {{ selectSize }}
-  img(:src="currentMashine.imgPath", alt="Кофемашина")
+  h1 {{currentModel.title}}
+  img(:src="currentModel.imgPath", alt="Кофемашина")
   select(v-model="selectSize")
     option(v-for="size in sizes" :key="size" :value="size") {{ size }}
   select(v-model="selectNumDrinks")
     option(v-for="numDrinks in numDrinks" :key="numDrinks" :value="numDrinks") {{ numDrinks }}
-  button(@click="addToCart") Добавить в корзину
+  button(@click=" cart.addToCart(currentModel.name)") Добавить в корзину
   router-link.router-link(to="/cart") Перейти в корзину
 <router-view />
 </template>
@@ -17,31 +17,29 @@ div(v-else)
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useMainStore } from '../stores/mainStore'
-import CoffeeMashine from '../utils/CoffeeMachine'
 
-const { sizes, numDrinks, isPendingOptions, errorMessage, cart } = storeToRefs(useMainStore())
+const store = useMainStore()
 
-const _selectSize = ref(sizes.value ? sizes.value[0] : 'standart')
-const _selectNumDrinks = ref(numDrinks.value ? numDrinks.value[0] : 6)
+const { sizes, numDrinks, currentModel, isPendingOptions, errorMessage, cart } = storeToRefs(store)
+
+const _selectSize = ref(currentModel.value.size ? currentModel.value.size : 'standart')
+const _selectNumDrinks = ref(currentModel.value.numDrinks ? currentModel.value.numDrinks : 6)
 
 const selectSize = computed({
   get: () => _selectSize.value,
   set: (value) => {
     _selectSize.value = value
+    store.setCurrentModel(_selectSize.value, _selectNumDrinks.value)
   }
 })
+
 const selectNumDrinks = computed({
   get: () => _selectNumDrinks.value,
   set: (value) => {
     _selectNumDrinks.value = value
+    store.setCurrentModel(_selectSize.value, _selectNumDrinks.value)
   }
 })
-
-const currentMashine = computed(() => new CoffeeMashine(selectSize.value, selectNumDrinks.value))
-
-const addToCart = () => {
-  cart.value.addToCart(currentMashine.value.name)
-}
 </script>
 
 <style scoped>
@@ -56,7 +54,6 @@ div {
 
 h1 {
   margin-bottom: 20px;
-  /* text-transform: capitalize; */
 }
 
 img {
@@ -72,8 +69,6 @@ select {
   padding: 8px;
   margin-bottom: 10px;
   border-radius: 5px;
-
-  /* font-size: 16px; */
 }
 
 button {
@@ -90,6 +85,9 @@ button:hover {
   background-color: #45a049;
 }
 
+button:active {
+  background-color: rgb(8, 106, 63);
+}
 .router-link {
   border-radius: 5px;
 }

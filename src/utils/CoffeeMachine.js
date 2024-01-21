@@ -14,6 +14,14 @@ export default class CoffeeMachine {
     this._imgPath = `src/assets/mashine-img/${size}.jpeg`
   }
 
+  get size() {
+    return this._size
+  }
+
+  get numDrinks() {
+    return this._numDrinks
+  }
+
   get name() {
     return this._name
   }
