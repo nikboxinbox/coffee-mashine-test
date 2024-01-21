@@ -9,7 +9,8 @@ export default class CoffeeMachine {
     this._size = size
     this._numDrinks = numDrinks
     this._name = `${size}_${numDrinks}`
-    this._title = `${size} ${numDrinks}`
+    this._title = `${size[0].toUpperCase()}${size.slice(1)} ${numDrinks}`
+
     this._imgPath = `src/assets/mashine-img/${size}.jpeg`
   }
 

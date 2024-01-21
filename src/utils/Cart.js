@@ -1,5 +1,4 @@
 export default class CoffeMashineCart {
-  
   _storage = {}
 
   get storage() {
@@ -14,7 +13,6 @@ export default class CoffeMashineCart {
     }
   }
 
- 
   removeFromCart(name) {
     if (!this._storage[name]) {
       console.error(name, `This ${name} is not in the cart !`)
@@ -28,7 +26,7 @@ export default class CoffeMashineCart {
   get listModels() {
     return Object.values(this._storage).map(({ name, count }) => ({
       name,
-      title: name.replace(/_/g, ' '),
+      title: name[0].toUpperCase() + name.slice(1).replace(/_/g, ' '),
       count
     }))
   }
