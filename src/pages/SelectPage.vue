@@ -19,7 +19,7 @@ import { storeToRefs } from 'pinia'
 import { useMainStore } from '../stores/mainStore'
 import CoffeeMashine from '../utils/CoffeeMachine'
 
-const { sizes, numDrinks, isPendingOptions, errorMessage } = storeToRefs(useMainStore())
+const { sizes, numDrinks, isPendingOptions, errorMessage, cart } = storeToRefs(useMainStore())
 
 const selectSize = ref(sizes.value ? sizes.value.length[0] : 'standart')
 const selectNumDrinks = ref(numDrinks.value ? numDrinks.value.length[0] : 6)
@@ -27,7 +27,7 @@ const selectNumDrinks = ref(numDrinks.value ? numDrinks.value.length[0] : 6)
 const currentMashine = computed(() => new CoffeeMashine(selectSize.value, selectNumDrinks.value))
 
 const addToCart = () => {
-  console.log('Добавить')
+  cart.value.addToCart(currentMashine.value.name)
 }
 </script>
 
