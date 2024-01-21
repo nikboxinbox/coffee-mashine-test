@@ -1,10 +1,6 @@
 export default class CoffeMashineCart {
   _storage = {}
 
-  get storage() {
-    return this._storage
-  }
-
   addToCart(name) {
     if (!this._storage[name]) {
       this._storage[name] = { name, count: 1 }
