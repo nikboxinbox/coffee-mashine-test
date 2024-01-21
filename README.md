@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img width="300" height="300" src="src/assets/mashine-img/screen_1.png">
+  <img width="300" height="300" src="src/assets/mashine-img/screen_2.png">
 </p>
 
 
