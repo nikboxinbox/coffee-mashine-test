@@ -1,27 +1,27 @@
 export default class CoffeeMachine {
-  #size
-  #numDrinks
-  #name
-  #title
-  #imgPath
+  _size
+  _numDrinks
+  _name
+  _title
+  _imgPath
 
   constructor(size, numDrinks) {
-    this.#size = size
-    this.#numDrinks = numDrinks
-    this.#name = `${size}_${numDrinks}`
-    this.#title = `${size} ${numDrinks}`
-    this.#imgPath = `src/assets/mashine-img/${size}.jpeg`
+    this._size = size
+    this._numDrinks = numDrinks
+    this._name = `${size}_${numDrinks}`
+    this._title = `${size} ${numDrinks}`
+    this._imgPath = `src/assets/mashine-img/${size}.jpeg`
   }
 
   get name() {
-    return this.#name
+    return this._name
   }
 
   get title() {
-    return this.#title
+    return this._title
   }
 
   get imgPath() {
-    return this.#imgPath
+    return this._imgPath
   }
 }
