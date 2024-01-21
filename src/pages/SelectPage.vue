@@ -1,8 +1,8 @@
 <template lang="pug">
 div(v-if="isPendingOptions")   ИДЕТ ЗАГРУЗКА... 
 div(v-else-if="errorMessage") {{ errorMessage }}
-div(v-else)
-  h1 {{currentMashine.title}} 
+div(v-else) 
+  h1 {{currentMashine.title}} HFFFF {{ selectSize }}
   img(:src="currentMashine.imgPath", alt="Кофемашина")
   select(v-model="selectSize")
     option(v-for="size in sizes" :key="size" :value="size") {{ size }}
@@ -21,8 +21,21 @@ import CoffeeMashine from '../utils/CoffeeMachine'
 
 const { sizes, numDrinks, isPendingOptions, errorMessage, cart } = storeToRefs(useMainStore())
 
-const selectSize = ref(sizes.value ? sizes.value.length[0] : 'standart')
-const selectNumDrinks = ref(numDrinks.value ? numDrinks.value.length[0] : 6)
+const _selectSize = ref(sizes.value ? sizes.value[0] : 'standart')
+const _selectNumDrinks = ref(numDrinks.value ? numDrinks.value[0] : 6)
+
+const selectSize = computed({
+  get: () => _selectSize.value,
+  set: (value) => {
+    _selectSize.value = value
+  }
+})
+const selectNumDrinks = computed({
+  get: () => _selectNumDrinks.value,
+  set: (value) => {
+    _selectNumDrinks.value = value
+  }
+})
 
 const currentMashine = computed(() => new CoffeeMashine(selectSize.value, selectNumDrinks.value))
 
@@ -43,7 +56,7 @@ div {
 
 h1 {
   margin-bottom: 20px;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 img {
