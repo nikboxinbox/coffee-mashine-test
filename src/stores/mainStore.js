@@ -1,18 +1,16 @@
-import { ref } from 'vue'
+import {  ref } from 'vue'
 import { defineStore } from 'pinia'
-import { useStorage } from '@vueuse/core'
 import Cart from '../utils/Cart'
 
 export const useMainStore = defineStore('main', () => {
-  // const options = ref(null)
   const sizes = ref(null)
   const numDrinks = ref(null)
-  const cart = useStorage('cart', () => new Cart())
+  const cart = ref(new Cart())
+
   const errorMessage = ref(null)
   const isPendingOptions = ref(false)
 
-  const loadOptions = async () => {
-    // debugger
+  const fetchOptions = async () => {
 
     try {
       isPendingOptions.value = true
@@ -29,7 +27,7 @@ export const useMainStore = defineStore('main', () => {
     }
   }
 
-  loadOptions()
+  fetchOptions()
 
   return {
     sizes,
