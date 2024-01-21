@@ -1,40 +1,35 @@
 export default class CoffeMashineCart {
-  #storage = {}
+  
+  _storage = {}
 
-  // TODO: Определиться какой вариант подходит более из списков
-  get listModels() {
-    const result = []
-
-    for (const name in this.#storage) {
-      const { count } = this.#storage[name]
-      result.push({ name, count })
-    }
-
-    return result
+  get storage() {
+    return this._storage
   }
 
-  get listMasines() {
-    return Object.values(this.#storage)
-  }
-
-  addCoffeMashine(coffeMashine) {
-    if (!this.#storage[coffeMashine.name]) {
-      this.#storage[coffeMashine.name] = {
-        coffeMashine,
-        count: 1
-      }
+  addToCart(name) {
+    if (!this._storage[name]) {
+      this._storage[name] = { name, count: 1 }
     } else {
-      this.#storage[coffeMashine.name].count++
+      this._storage[name].count++
     }
   }
 
-  removeCoffeMashine(name) {
-    if (!this.#storage[name]) {
+ 
+  removeFromCart(name) {
+    if (!this._storage[name]) {
       console.error(name, `This ${name} is not in the cart !`)
-    } else if (this.#storage[name].count === 1) {
-      delete this.#storage[name]
+    } else if (this._storage[name].count === 1) {
+      delete this._storage[name]
     } else {
-      this.#storage[name].count--
+      this._storage[name].count--
     }
+  }
+
+  get listModels() {
+    return Object.values(this._storage).map(({ name, count }) => ({
+      name,
+      title: name.replace(/_/g, ' '),
+      count
+    }))
   }
 }
